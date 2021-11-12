@@ -1,12 +1,12 @@
-# cm-test
+# Tallinn Temperature displaying project
 
 I have used :
-      terraform cmdline tool version 0.14.11
-      azure-cli version 2.30 
-      python  version 3.8.2
-      promtheus latest docker-image
-      grafana latest docker-image
-      existing Azure account and subscription(s) with privileges to create VM's and azure location that would support ubuntu 20_04-lts-gen2 image
+   1) terraform cmdline tool version 0.14.11
+   2) azure-cli version 2.30 
+   3) python  version 3.8.2
+   4) promtheus latest docker-image
+   5) grafana latest docker-image
+   6) existing Azure account and subscription(s) with privileges to create VM's and azure location that would support ubuntu 20_04-lts-gen2 image
 
 Probably some components newer version(s) would work with my project here aswell.
 
@@ -20,20 +20,20 @@ In there, you should set your desired:
 Then you should (using powershell or bash) cd to "terraform" and execute those steps:
 
 1) az login
-#since the tenamt, i have logged into, had many subscriptions attached, now needed to set appropriate one: 
+//since the tenamt, i have logged into, had many subscriptions attached, now needed to set appropriate one: 
 2) az account set --subscription "<my_subscription_name>"
 3) terraform init
-# could skip this step, if no changes made to main.tf 
+// could skip this step, if no changes made to main.tf 
 4) terraform fmt
 5) terraform validate
-# this is the main operation
+// this is the main operation
 6) terraform apply
 
 In the end of the apply-process, you should see something like that
 ------------------------------------------
 Outputs:
 
-new_VM_IP = "168.63.**.**" 
+new_VM_IP = "<new_ip>" 
 -----------------------------------------
 Then head to your favourite browser and with that ip:  168.63.**.**:3000 you should see a grafana login-interface, the default username/password there 
 are "admin/admin", then it prompts you to change the password to something more secure.

@@ -11,7 +11,7 @@ I have used :
 Probably some components newer version(s) would work with my project here aswell.
 
 After you have pulled the source from current repo, take a look at the parameters configuration-file "terraform/variables.tf".
-In there, you should set your desired: 
+In there, you should set your desired : 
      1) Azure resource group (terraform will create it aswell), 
      2) resource group location
      3) VM-name 
@@ -24,7 +24,7 @@ Then you should (using powershell or bash) cd to "terraform" and execute those s
 3) terraform init
 4) terraform fmt // could skip this step, if no changes made to main.tf
 5) terraform validate
-6) terraform apply
+#### 6) terraform apply
 
 At the end of the apply-process, you should see something like that
 Outputs: 

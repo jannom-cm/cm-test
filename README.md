@@ -12,6 +12,7 @@ Probably some components newer version(s) would work with my project here aswell
 
 After you have pulled the source from current repo, take a look at the parameters configuration-file "terraform/variables.tf".
 In there, you should set your desired:
+
      1) Azure resource group (terraform will create it aswell), 
      2) resource group location
      3) VM-name 
@@ -20,22 +21,17 @@ In there, you should set your desired:
 Then you should (using powershell or bash) cd to "terraform" and execute those steps:
 
 1) az login
-//since the tenamt, i have logged into, had many subscriptions attached, now needed to set appropriate one: 
-2) az account set --subscription "<my_subscription_name>"
+2) az account set --subscription "<my_subscription_name>"  //since the tenamt, i have logged into, had many subscriptions attached, now needed to set appropriate one
 3) terraform init
-// could skip this step, if no changes made to main.tf 
-4) terraform fmt
+4) terraform fmt // could skip this step, if no changes made to main.tf
 5) terraform validate
-// this is the main operation
 6) terraform apply
 
-In the end of the apply-process, you should see something like that
-------------------------------------------
-Outputs:
-
+At the end of the apply-process, you should see something like that
+Outputs: 
 new_VM_IP = "<new_ip>" 
------------------------------------------
-Then head to your favourite browser and with that ip:  168.63.**.**:3000 you should see a grafana login-interface, the default username/password there 
+
+Then head to your favourite browser and with that ip: "<new_ip>":3000 you should see a grafana login-interface, the default username/password there 
 are "admin/admin", then it prompts you to change the password to something more secure.
 Now, at the left-pane of the grafana-interface, choose "Dashboards > Manage".
 There you should see dashboard named "PreProvisionedDash", after opening it, you should see graph "Tallinn temperature" where some data is already trickling in and drawing lines.  

@@ -11,8 +11,7 @@ I have used :
 Probably some components newer version(s) would work with my project here aswell.
 
 After you have pulled the source from current repo, take a look at the parameters configuration-file "terraform/variables.tf".
-In there, you should set your desired:
-
+In there, you should set your desired: 
      1) Azure resource group (terraform will create it aswell), 
      2) resource group location
      3) VM-name 
@@ -31,7 +30,7 @@ At the end of the apply-process, you should see something like that
 Outputs: 
 new_VM_IP = "<new_ip>" 
 
-Then head to your favourite browser and with that ip: "<new_ip>":3000 you should see a grafana login-interface, the default username/password there 
+Then head to your favourite browser and with that ip: "<new_ip>":3000  -- here you should see a grafana login-interface, the default username/password there 
 are "admin/admin", then it prompts you to change the password to something more secure.
 Now, at the left-pane of the grafana-interface, choose "Dashboards > Manage".
 There you should see dashboard named "PreProvisionedDash", after opening it, you should see graph "Tallinn temperature" where some data is already trickling in and drawing lines.  

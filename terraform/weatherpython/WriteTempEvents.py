@@ -14,7 +14,8 @@ class WriteTempEvents():
         self.api_key  = self.config[conf_section]["api_key"]
         self.api_town = self.config[conf_section]["api_town"]    
         self.api_unit = self.config[conf_section]["api_unit"]
-        self.sleep_time_seconds   =  int(self.config[conf_section]["sleep_time_seconds"])
+        self.sleep_time_seconds   = int(self.config[conf_section]["sleep_time_seconds"])
+        self.endpoint_port        = int(self.config[conf_section]["endpoint_port"])
         logging.basicConfig(filename=self.config[conf_section]["log_file"], 
                             filemode='a', 
                             level=int(self.config[conf_section]["log_level"]),
@@ -27,13 +28,17 @@ class WriteTempEvents():
         weather_gauge = Gauge('janno_weather_requests', 'Description of gauge')
         formated_uri =  self.get_uri_with_values(self.api_uri,self.api_town,self.api_key,self.api_unit)
         print ("api uri: ",formated_uri)
-        start_http_server(8000)
+        start_http_server(self.endpoint_port)
         while True:
-            api_response = self.get_api_response(formated_uri)
-            print ("api response: ", api_response)
-            temp=self.get_temp_and_write_result_to_log(api_response)
-            weather_gauge.set(temp)
-            time.sleep(self.sleep_time_seconds)
+             try:
+                api_response = self.get_api_response(formated_uri)
+                #print ("api response: ", api_response)
+                temp=self.get_temp_and_write_result_to_log(api_response)                
+                if (temp!=99):
+                  weather_gauge.set(temp)
+             except Exception as e:
+                logging.error(e)
+             time.sleep(self.sleep_time_seconds)
 
     ########################################################################
     def get_uri_with_values(self,uri_template,town,key,unit):
@@ -52,16 +57,16 @@ class WriteTempEvents():
 
     def get_temp_and_write_result_to_log(self,api_response):
 
+        temp = 99
         if (api_response.status_code == 200):
                response_to_json = api_response.json()
                #print(json.dumps(), indent=2))
-               print("-----------------------------------")
+               #print("-----------------------------------")
                temp=response_to_json['main']['temp'] #loaded_json = json.dumps(api_response.json())
                #print (response_to_json['main']['temp'])                       
                logging.info("%s temp: %s" % (self.api_town,temp))
         else:
                logging.warning("API response: %s" % api_response.status_code)
-
         return temp
 
 if __name__ == '__main__':
